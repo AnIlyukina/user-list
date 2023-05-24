@@ -3,6 +3,7 @@ import { reactive } from 'vue';
 import UIInput from './UI/UIInput.vue';
 import UITextarea from './UI/UITextarea.vue';
 import { User } from '../types/user'
+import { useRouter } from 'vue-router';
 
 const initialUserData = {
     firstName: '',
@@ -12,7 +13,21 @@ const initialUserData = {
     description: '',
 }
 
+const emits = defineEmits<{
+  (e: 'saveUser', value: User): void
+}>()
+
 const userData: User = reactive({...initialUserData});
+
+const router = useRouter();
+
+const cancel = () => {
+  router.push('/');
+}
+
+const saveUser = () => {
+  emits('saveUser', userData)
+}
 
 </script>
 <template>
@@ -48,4 +63,18 @@ const userData: User = reactive({...initialUserData});
       maxlength="100"
     />
   </div>
+  <div class="flex justify-end">
+    <button 
+      class="p-2 ml-3 bg-stone-400 rounded-md"
+      @click="saveUser"
+      >
+      Сохранить
+    </button>
+      <button
+        class="p-2 ml-3 bg-stone-400 rounded-md"
+        @click="cancel"
+        >
+      Отменить
+    </button>
+    </div>
 </template>

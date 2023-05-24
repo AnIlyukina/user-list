@@ -26,8 +26,7 @@ const changeValue = (event: Event) => {
         :value="props.modelValue"
         :placeholder="props.placeholder"
         class="block py-2 px-4 w-full border-gray-300 rounded-full
-      shadow-sm focus:ring-blue-500 focus:border-blue-500
-      sm:text-sm focus:outline-none"
+      shadow-sm focus:outline-none"
         @input="changeValue"
       />
     </div>
