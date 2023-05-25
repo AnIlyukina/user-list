@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, toRefs } from 'vue';
 import UIInput from './UI/UIInput.vue';
 import UITextarea from './UI/UITextarea.vue';
 import { User } from '../types/user'
 import { useRouter } from 'vue-router';
 
-const initialUserData = {
+const props = defineProps<{
+  user?: User,
+  type: string
+}>()
+
+
+const initialUserData = props.user ? props.user : {
     firstName: '',
     lastName: '',
     middleName: '',
@@ -14,7 +20,7 @@ const initialUserData = {
 }
 
 const emits = defineEmits<{
-  (e: 'saveUser', value: User): void
+  (e: 'saveForm', value: User): void
 }>()
 
 const userData: User = reactive({...initialUserData});
@@ -25,8 +31,8 @@ const cancel = () => {
   router.push('/');
 }
 
-const saveUser = () => {
-  emits('saveUser', userData)
+const saveForm = () => {
+    emits('saveForm', userData)
 }
 
 </script>
@@ -64,9 +70,9 @@ const saveUser = () => {
     />
   </div>
   <div class="flex justify-end">
-    <button 
+    <button
       class="p-2 ml-3 bg-stone-400 rounded-md"
-      @click="saveUser"
+      @click="saveForm"
       >
       Сохранить
     </button>
