@@ -11,7 +11,7 @@ const { userCount } = storeToRefs(useUsers)
 
 <template>
   <div class="pr-10 pl-10">
-    <h1>
+    <h1 class="text-center mb-5">
       Список пользователей : {{ userCount }}
     </h1>
     <div v-if="userCount > 0">

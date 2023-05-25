@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { reactive, toRefs } from 'vue';
+import { reactive, ref } from 'vue';
 import UIInput from './UI/UIInput.vue';
 import UITextarea from './UI/UITextarea.vue';
+import UIButton from './UI/UIButton.vue';
 import { User } from '../types/user'
 import { useRouter } from 'vue-router';
 
@@ -11,10 +12,11 @@ const props = defineProps<{
 }>()
 
 
+let errorFullName = ref('')
+let errorBirthDate = ref('')
+
 const initialUserData = props.user ? props.user : {
-    firstName: '',
-    lastName: '',
-    middleName: '',
+    fullName: '',
     birthDate: '',
     description: '',
 }
@@ -23,45 +25,79 @@ const emits = defineEmits<{
   (e: 'saveForm', value: User): void
 }>()
 
-const userData: User = reactive({...initialUserData});
+const userData: any = reactive({...initialUserData});
 
 const router = useRouter();
+
+const checkValid = () => {
+  errorFullName.value = ''
+  errorBirthDate.value = ''
+  let isValid = true
+
+  if (!userData.fullName) {
+    errorFullName.value = "Заполните ФИО"
+    isValid = false 
+  }
+
+  if (!userData.birthDate) {
+    errorBirthDate.value = "Заполните дату рождения"
+    isValid = false
+  }
+
+  return isValid
+}
 
 const cancel = () => {
   router.push('/');
 }
 
 const saveForm = () => {
-    emits('saveForm', userData)
+    const isValid = checkValid()
+    if (isValid) {
+
+      emits('saveForm', userData)
+    }
 }
 
 </script>
 <template>
   <div>
     <u-i-input
-      v-model="userData.firstName"
-      label="Фамилия"
-      placeholder="Илюкина"
+      v-model="userData.fullName"
+      :isValid="!errorFullName"
+      label="ФИО (Отчество, если есть)"
+      placeholder="Илюкина Анна Алексеевна"
       type="text"
+      maxlength="30"
     />
-    <u-i-input
-      v-model="userData.lastName"
-      label="Имя"
-      placeholder="Анна"
-      type="text"
-    />
-    <u-i-input
-      v-model="userData.middleName"
-      label="Отчество"
-      placeholder="Алексеевна"
-      type="text"
-    />
+    <div
+     class="h-[30px] block text-center"
+    >
+      <small
+        v-if="errorFullName"
+        class="text-rose-500"
+      > 
+        {{ errorFullName }}
+      </small>
+    </div>
     <u-i-input
       v-model="userData.birthDate"
+      :isValid="!errorBirthDate"
       label="Дата рождения"
       placeholder="17.09.1998"
       type="text"
+      maxlength="10"
     />
+    <div
+      class="h-[30px] block text-center"
+    > 
+      <small
+        v-if="errorBirthDate"
+        class="text-rose-500"
+      >
+        {{ errorBirthDate }}
+      </small>
+    </div>
     <u-i-textarea
       v-model="userData.description"
       label="Описание"
@@ -70,17 +106,13 @@ const saveForm = () => {
     />
   </div>
   <div class="flex justify-end">
-    <button
-      class="p-2 ml-3 bg-stone-400 rounded-md"
-      @click="saveForm"
-      >
-      Сохранить
-    </button>
-      <button
-        class="p-2 ml-3 bg-stone-400 rounded-md"
-        @click="cancel"
-        >
-      Отменить
-    </button>
-    </div>
+    <u-i-button
+      text="Cохранить"
+       @click="saveForm"
+    />
+    <u-i-button
+      text="Отменить"
+      @click="cancel"
+    />
+  </div>
 </template>

@@ -2,26 +2,41 @@
 
 import FormUser from '../components/FormUser.vue'
 
-import {User} from "../types/user";
+import { User } from "../types/user";
 
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
+
 import { useUsersStore } from "../stores/user";
 
-const useUsers = useUsersStore()
+import { storeToRefs } from 'pinia'
+
+import { ref } from 'vue'
+
+let useUsers = useUsersStore()
+let { userList } = storeToRefs(useUsers)
 
 const router = useRouter()
 
-const stateDataUser = {
-  firstName: 'Анна',
-  lastName: 'Илюкина',
-  middleName: 'Алексеевна',
-  birthDate: '17.09.98',
-  description: 'cbfbfbdfbdfbdffdbdfbdfbdfbdfbdfbdfbdfb'
+const route = useRoute()
+
+const id = Number(route.query.id)
+
+
+//@ts-ignore
+let dataUser: User = ref()
+
+const findUserById = (id: number): User => {
+  return (userList.value as any)[id]
 }
 
+if(id > -1) {
+ dataUser = findUserById(id) 
+}
+
+
+
 const editUser = (user: User) => {
-  console.log(user, 'user')
-  useUsers.editUser(user, 1)
+  useUsers.editUser(user, id)
   router.push('/')
 }
 
@@ -30,18 +45,10 @@ const editUser = (user: User) => {
 <template>
   <div class="pr-10 pl-10">
     <h1 class="text-center">Редактировать пользователя</h1>
-    <div
-      v-if="stateDataUser"
-      class="mt-5"
-    >
-      <form-user
-        :user="stateDataUser"
-        :type="'edit'"
-        @saveForm="editUser"
-      />
-    </div>
-    <div v-else>
-      Найти пользователя ... ?
-    </div>
+    <form-user
+      :user="dataUser"
+      :type="'edit'"
+      @saveForm="editUser"
+    />
   </div>
 </template>

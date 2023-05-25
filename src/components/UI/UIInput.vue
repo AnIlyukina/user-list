@@ -4,7 +4,9 @@ const props = defineProps<{
   modelValue: string | null,
   placeholder?: string,
   label: string,
-  type: string
+  type: string,
+  maxlength: string,
+  isValid?: boolean
 }>()
 
 const emits = defineEmits<{
@@ -16,7 +18,7 @@ const changeValue = (event: Event) => {
 }
 </script>
 <template>
-  <div class="mb-7">
+  <div>
     <label class="ml-2">
       {{ props.label }}:
     </label>
@@ -25,8 +27,10 @@ const changeValue = (event: Event) => {
         :type="props.type"
         :value="props.modelValue"
         :placeholder="props.placeholder"
-        class="block py-2 px-4 w-full border-gray-300 rounded-full
-      shadow-sm focus:outline-none"
+        :maxlength="maxlength"
+        class="block py-2 px-4 w-full  rounded-full
+      shadow-sm"
+        :class="[isValid ? '' : 'border border-rose-500']"
         @input="changeValue"
       />
     </div>

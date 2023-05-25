@@ -22,6 +22,7 @@ const saveUser = (user: User ) => {
     <h1 class="text-center">Создать пользователя</h1>
     <div class="mt-5">
       <form-user
+        type="create"
         @saveForm="saveUser"
       />
     </div>

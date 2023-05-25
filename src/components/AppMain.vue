@@ -7,7 +7,7 @@
       w-[calc(100%-240px)]
       overflow-auto
       h-full
-      bg-lime-200
+      bg-lime-100
     "
   >
     <div class="mt-[70px]"/>

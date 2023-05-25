@@ -6,7 +6,14 @@ import MenuItem from './MenuItem.vue'
 
 </script>
 <template>
-  <div class="h-[100%] p-6 w-[240px] fixed z-50">
+  <div 
+    class="
+      h-[100%]
+      p-6 w-[240px]
+      fixed
+      bg-emerald-100
+    "
+  >
     <div class="my-8"></div>
     
     <ul>
@@ -22,13 +29,6 @@ import MenuItem from './MenuItem.vue'
           class="ml-[1px]"
           name="Создать пользователя"
           page-url="/create"
-        />
-      </RouterLink>
-      <RouterLink to="/edit">
-        <menu-item
-          class="ml-[1px]"
-          name="Редактировать пользователя"
-          page-url="/edit"
         />
       </RouterLink>
     </ul>
