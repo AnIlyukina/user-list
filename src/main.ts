@@ -1,15 +1,19 @@
-import { createApp } from 'vue'
+import { createApp, watch } from 'vue'
 import { createPinia } from 'pinia';
-import { createPersistedState } from 'pinia-plugin-persistedstate'
 import './style.css'
 import App from './App.vue'
 import router from './router';
 
 const pinia = createPinia()
 
-pinia.use(createPersistedState({
-    auto: true
-}))
+// сохранение состояния в локальное хранилище
+watch(
+  pinia.state,
+  (state) => {
+    localStorage.setItem("users", JSON.stringify(state.users.userList));
+  },
+  { deep: true }
+);
 
 const app = createApp(App)
 

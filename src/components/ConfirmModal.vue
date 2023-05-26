@@ -4,12 +4,6 @@ import UIButton from './UI/UIButton.vue';
 
 import Close from 'vue-material-design-icons/Close.vue';
 
-const props = defineProps<{
-  firstName: string,
-  index: number
-}>()
-
-
 
 const emits = defineEmits<{
   (e: 'confirm', value: boolean): void

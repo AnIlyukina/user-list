@@ -2,28 +2,33 @@ import { defineStore } from 'pinia'
 
 import { reactive, computed } from 'vue'
 
-import { User } from '../types/user'
+import { UserForSend } from '../types/user'
 
-export const useUsersStore = defineStore("user", () => {
+export const useUsersStore = defineStore("users", 
+  () => {
 
-    let users = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).userList : []
-    // localStorage.removeItem("user");
-    const userList: User[] = reactive(users)
+    let users
+    if (localStorage.getItem('users')) {
+      users = JSON.parse(localStorage.getItem('users') || '')
+    } else {
+      users = []
+    }
+  
+    const userList: UserForSend[] = reactive(users)
 
     const userCount = computed<number>(() => userList.length)
 
-    function createUser (user: User) {
+    function createUser (user: UserForSend) {
         userList.push(user)
     }
 
-    function editUser (user: User, index: number) {
+    function editUser (user: UserForSend, index: number) {
         userList.splice(index, 1, user)
     }
 
     function deleteUser (index: number) {
         userList.splice(index, 1)
     }
-
 
     return {
         createUser,
@@ -32,4 +37,5 @@ export const useUsersStore = defineStore("user", () => {
         userList,
         userCount
     }
-});
+  }
+);
