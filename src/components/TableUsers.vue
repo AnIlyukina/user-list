@@ -5,6 +5,7 @@
   import { useRouter } from 'vue-router';
 
   import ConfirmModal from "./ConfirmModal.vue";
+  import UIButton from './UI/UIButton.vue'
 
   import PencilBox from 'vue-material-design-icons/PencilBox.vue';
   import DeleteEmpty from 'vue-material-design-icons/DeleteEmpty.vue';
@@ -44,7 +45,7 @@
 <template>
   <confirm-modal
     v-if="isOpenConfirmModal"
-    @confirm="confirm"  
+    @confirm="confirm"
   />
   <table class="table-auto border border-slate-400 w-full">
     <thead>
@@ -64,26 +65,34 @@
       >
         <td class="border border-slate-500 p-2">{{ user.firstName }}</td>
         <td class="border border-slate-500 p-2">{{ user.lastName }}</td>
-        <td class="border border-slate-500 p-2">{{ user.middleName }}</td>
+        <td
+          class="border border-slate-500 p-2"
+          :class="[user.middleName ? '' : 'text-center']"
+        >
+          {{ user.middleName ? user.middleName : '—' }}
+        </td>
         <td class="border border-slate-500 p-2">{{ user.birthDate }}</td>
-        <td class="border border-slate-500 p-2">{{ user.description }}</td>
+        <td
+          class="border border-slate-500 p-2"
+          :class="[user.description ? '' : 'text-center']"
+        >
+          {{ user.description ? user.description : '—' }}
+        </td>
         <td class="border border-slate-500 p-2 w-[150px]">
-          <button
-            class="mx-4"
+          <u-i-button
             @click="editUser(index)"
           >
             <pencil-box
-              :size="30"
+              :size="26"
             />
-          </button>
-          <button
-            class="mx-4"
+          </u-i-button>
+          <u-i-button
             @click="openConfirmModal(index)"
           >
             <delete-empty
-              :size="30"
+              :size="26"
             />
-          </button>
+          </u-i-button>
         </td>
       </tr>
     </tbody>

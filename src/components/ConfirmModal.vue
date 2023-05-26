@@ -4,6 +4,13 @@ import UIButton from './UI/UIButton.vue';
 
 import Close from 'vue-material-design-icons/Close.vue';
 
+const props = defineProps<{
+  firstName: string,
+  index: number
+}>()
+
+
+
 const emits = defineEmits<{
   (e: 'confirm', value: boolean): void
 }>()
@@ -44,23 +51,23 @@ const confirm = (isConfirm: boolean) => {
     >
     <div>
       <div class="flex justify-end">
-        <u-i-button 
+        <u-i-button
           @click="confirm(false)"
         >
           <close
             :size="20"
           />
         </u-i-button>
-        
+
       </div>
       <h1
         class="text-center text-lg"
       >
-        Удалить пользоваттеля АННА ИЛЮКИНА?
+        Удалить пользователя?
       </h1>
 
     </div>
-    
+
     <div class="flex justify-around">
     <u-i-button
       text="Удалить"

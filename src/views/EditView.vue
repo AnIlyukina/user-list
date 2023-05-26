@@ -2,7 +2,7 @@
 
 import FormUser from '../components/FormUser.vue'
 
-import { User } from "../types/user";
+import { UserForm, UserForSend } from "../types/user";
 
 import { useRouter, useRoute } from "vue-router";
 
@@ -22,20 +22,27 @@ const route = useRoute()
 const id = Number(route.query.id)
 
 
-//@ts-ignore
-let dataUser: User = ref()
+//@ts-ignore TODO
+let dataUser: UserForm = ref()
 
-const findUserById = (id: number): User => {
+const findUserById = (id: number): UserForSend => {
   return (userList.value as any)[id]
 }
 
 if(id > -1) {
- dataUser = findUserById(id) 
+ const foundedUser: UserForSend  = findUserById(id)
+  if (foundedUser) {
+    dataUser = {
+      fullName: `${foundedUser.firstName} ${foundedUser.lastName} ${foundedUser.middleName}`,
+      birthDate: foundedUser.birthDate,
+      description: foundedUser.description
+    }
+  }
 }
 
 
 
-const editUser = (user: User) => {
+const editUser = (user: UserForSend) => {
   useUsers.editUser(user, id)
   router.push('/')
 }

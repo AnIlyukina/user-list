@@ -5,8 +5,9 @@ import { RouterLink } from 'vue-router'
 import MenuItem from './MenuItem.vue'
 
 </script>
+
 <template>
-  <div 
+  <div
     class="
       h-[100%]
       p-6 w-[240px]
@@ -15,7 +16,7 @@ import MenuItem from './MenuItem.vue'
     "
   >
     <div class="my-8"></div>
-    
+
     <ul>
       <RouterLink to="/">
         <menu-item
@@ -26,7 +27,6 @@ import MenuItem from './MenuItem.vue'
       </RouterLink>
       <RouterLink to="/create">
         <menu-item
-          class="ml-[1px]"
           name="Создать пользователя"
           page-url="/create"
         />
