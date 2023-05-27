@@ -31,7 +31,7 @@ if(id > -1) {
 
   if (foundedUser) {
     dataUser = {
-      fullName: `${foundedUser.firstName} ${foundedUser.lastName} ${foundedUser.middleName}`,
+      fullName: `${foundedUser.firstName} ${foundedUser.lastName} ${foundedUser.middleName ? foundedUser.middleName : ''}`,
       birthDate: changeFormatDate(foundedUser.birthDate, 'DD.MM.YYYY'),
       description: foundedUser.description,
     }
