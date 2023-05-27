@@ -57,18 +57,18 @@ const confirm = (isConfirm: boolean) => {
       <h1
         class="text-center text-lg"
       >
-        Удалить пользователя?
+        Запись будет удалена. Уверены?    
       </h1>
 
     </div>
 
     <div class="flex justify-around">
     <u-i-button
-      text="Удалить"
+      text="Ок"
       @click="confirm(true)"
     />
     <u-i-button
-      text="Отменить"
+      text="“Отмена”"
       @click="confirm(false)"
     />
   </div>

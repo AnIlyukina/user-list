@@ -5,16 +5,17 @@ import { useUsersStore } from '../stores/user';
 import { useRouter } from 'vue-router'
 import FormUser from '../components/FormUser.vue';
 
-import { User } from '../types/user'
+import { UserForSend } from '../types/user'
 
 const useUsers = useUsersStore()
 
 const router = useRouter();
 
-const saveUser = (user: User ) => {
+const saveUser = (user: UserForSend ) => {
   useUsers.createUser(user)
   router.push('/')
 }
+
 </script>
 
 <template>

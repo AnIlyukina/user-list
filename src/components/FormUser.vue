@@ -3,11 +3,14 @@ import { useRouter } from 'vue-router';
 
 import { reactive, ref } from 'vue';
 
+import changeFormatDate from '../../composables/changeFormatDate';
+
+import { UserForm, UserForSend } from '../types/user'
+
 import UIInput from './UI/UIInput.vue';
 import UITextarea from './UI/UITextarea.vue';
 import UIButton from './UI/UIButton.vue';
 
-import { UserForm, UserForSend } from '../types/user'
 
 const props = defineProps<{
   user?: UserForm,
@@ -18,23 +21,30 @@ const emits = defineEmits<{
   (e: 'saveForm', value: UserForSend): void
 }>()
 
+const router = useRouter();
+
 // ошибки валидации
 let errorFullName = ref('')
 let errorBirthDate = ref('')
 
+
+// данные пользователя
 const initialUserData = props.user ? props.user : {
     fullName: '',
     birthDate: '',
     description: '',
 }
 
-const userData: any = reactive({...initialUserData});
+const userData: UserForm = reactive({...initialUserData});
 
 const checkValid = () => {
+  
   errorFullName.value = ''
   errorBirthDate.value = ''
+  
   let isValid = true
 
+  // проверка фио
   if (!userData.fullName) {
     errorFullName.value = "Заполните ФИО"
     isValid = false
@@ -48,28 +58,28 @@ const checkValid = () => {
     }
   }
 
+  // проверка даты рождения
   if (!userData.birthDate) {
     errorBirthDate.value = "Заполните дату рождения"
     isValid = false
   } else {
     const dateReg = /^\d{2}([.])\d{2}\1\d{4}$/
+
     if(!(userData.birthDate).match(dateReg)) {
       errorBirthDate.value = "Некорректно заполнена дата рождения"
       isValid = false
     }
-    console.log('регулярку на проверку даты рождения')
   }
 
   return isValid
 }
 
 // закрываем модалку
-const router = useRouter();
-
 const cancel = () => {
   router.push('/');
 }
-
+let a = changeFormatDate('12.22.2222', 'YYYY-MM-DD')
+console.log(a)
 const saveForm = () => {
     const isValid = checkValid()
 
@@ -78,7 +88,7 @@ const saveForm = () => {
         firstName: userData.fullName.split(' ')[0],
         lastName: userData.fullName.split(' ')[1],
         middleName: userData.fullName.split(' ')[2],
-        birthDate: userData.birthDate,
+        birthDate: changeFormatDate(userData.birthDate, 'YYYY-MM-DD'),
         description: userData.description
       }
       emits('saveForm', dataForSend)
@@ -86,6 +96,7 @@ const saveForm = () => {
 }
 
 </script>
+
 <template>
   <div>
     <u-i-input

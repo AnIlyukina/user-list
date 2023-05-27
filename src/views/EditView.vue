@@ -1,40 +1,44 @@
 <script setup lang="ts">
 
-import FormUser from '../components/FormUser.vue'
-
-import { UserForm, UserForSend } from "../types/user";
+import { ref } from 'vue'
 
 import { useRouter, useRoute } from "vue-router";
 
-import { useUsersStore } from "../stores/user";
-
 import { storeToRefs } from 'pinia'
 
-import { ref } from 'vue'
+import { useUsersStore } from "../stores/user";
+
+import changeFormatDate from '../../composables/changeFormatDate';
+
+import { UserForm, UserForSend } from "../types/user";
+
+import FormUser from '../components/FormUser.vue'
 
 let useUsers = useUsersStore()
 let { userList } = storeToRefs(useUsers)
 
 const router = useRouter()
-
 const route = useRoute()
 
 const id = Number(route.query.id)
 
-
-//@ts-ignore TODO
-let dataUser: UserForm = ref()
+let dataUser: UserForm = {
+  fullName: 'неизвестно',
+  birthDate: '0000-00-00',
+  description: ''
+}
 
 const findUserById = (id: number): UserForSend => {
-  return (userList.value as any)[id]
+  return (userList.value as UserForSend[])[id]
 }
 
 if(id > -1) {
- const foundedUser: UserForSend  = findUserById(id)
+  const foundedUser: UserForSend  = findUserById(id)
+
   if (foundedUser) {
     dataUser = {
       fullName: `${foundedUser.firstName} ${foundedUser.lastName} ${foundedUser.middleName}`,
-      birthDate: foundedUser.birthDate,
+      birthDate: changeFormatDate(foundedUser.birthDate, 'DD.MM.YYYY'),
       description: foundedUser.description
     }
   }
