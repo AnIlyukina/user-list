@@ -63,6 +63,9 @@
 
   const openConfirmModal = (index: number) => {
     deletedIndex.value = index
+    if (currentPage.value > 0) {
+      deletedIndex.value = index + (currentPage.value * perPage.value - 10)
+    }
     isOpenConfirmModal.value = true
   }
   const closeConfirmModal = () => {
@@ -77,9 +80,13 @@
   }
 
   const editUser = (index: number) => {
+    let queryId = index
+    if (currentPage.value > 0) {
+      queryId = index + (currentPage.value * perPage.value - 10)
+    }
     router.push({
       name: 'editView',
-      query: { id: index }
+      query: { id: queryId }
     })
   }
 

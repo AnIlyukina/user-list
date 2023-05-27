@@ -8,7 +8,7 @@ import { storeToRefs } from 'pinia'
 
 import { useUsersStore } from "../stores/user";
 
-import changeFormatDate from '../../composables/changeFormatDate';
+import changeFormatDate from '../composables/changeFormatDate';
 
 import { UserForm, UserForSend } from "../types/user";
 

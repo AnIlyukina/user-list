@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router';
 
 import { reactive, ref } from 'vue';
 
-import changeFormatDate from '../../composables/changeFormatDate';
+import changeFormatDate from '../composables/changeFormatDate';
 
 import { UserForm, UserForSend } from '../types/user'
 
