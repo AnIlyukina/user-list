@@ -13,7 +13,7 @@ const { userCount } = storeToRefs(useUsers)
 
 let currentPage = ref(1)
 const total = ref(userCount)
-let perPage = ref(10)
+const perPage = ref(10)
 
 const pageChange = (pageNumber: number) => {
   currentPage.value = pageNumber
@@ -22,19 +22,23 @@ const pageChange = (pageNumber: number) => {
 </script>
 
 <template>
-  <div class="pr-10 pl-10">
+  <div class="p-[10px] pt-[50px] h-[100vh] box-border">
     <h1 class="text-lg text-center mb-5">
       Список пользователей : {{ userCount }}
     </h1>
     <div
       v-if="userCount > 0"
-      class="flex flex-col justify-between"
-      >
+      class="flex flex-col justify-between h-[calc(100%-50px)]"
+    >
       <div>
-        <table-users/>
+        <table-users
+          :current-page="currentPage"
+          :per-page="perPage"
+        />
       </div>
       <div>
         <vue-tailwind-pagination
+          v-if="userCount > 10"
           :current="currentPage"
           :total="total"
           :per-page="perPage"

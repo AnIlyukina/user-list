@@ -10,6 +10,7 @@ const pinia = createPinia()
 watch(
   pinia.state,
   (state) => {
+    console.log(state.users.userList)
     localStorage.setItem("users", JSON.stringify(state.users.userList));
   },
   { deep: true }

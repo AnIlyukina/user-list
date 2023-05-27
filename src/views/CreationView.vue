@@ -18,7 +18,7 @@ const saveUser = (user: User ) => {
 </script>
 
 <template>
-  <div class="pr-10 pl-10">
+  <div class="pr-10 pl-10 pt-[50px]">
     <h1 class="text-lg text-center">Создать пользователя</h1>
     <div class="mt-5">
       <form-user

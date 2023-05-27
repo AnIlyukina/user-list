@@ -10,7 +10,6 @@
       bg-gray-100
     "
   >
-    <div class="mt-[50px]"/>
     <slot/>
   </main>
 </template>

@@ -50,7 +50,7 @@ const editUser = (user: UserForSend) => {
 </script>
 
 <template>
-  <div class="pr-10 pl-10">
+  <div class="pr-10 pl-10 pt-[50px]">
     <h1 class="text-center">Редактировать пользователя</h1>
     <form-user
       :user="dataUser"
