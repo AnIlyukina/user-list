@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import AppNavigation from './components/AppNavigation.vue'
+
+import AppNavigation from './components/AppNavigation.vue';
 import AppMain from "./components/AppMain.vue";
+
 </script>
 
 <template>

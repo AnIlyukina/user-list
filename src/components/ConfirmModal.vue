@@ -6,12 +6,12 @@ import Close from 'vue-material-design-icons/Close.vue';
 
 
 const emits = defineEmits<{
-  (e: 'confirm', value: boolean): void
-}>()
+  (e: 'confirm', value: boolean): void;
+}>();
 
 const confirm = (isConfirm: boolean) => {
-  emits('confirm', isConfirm)
-}
+  emits('confirm', isConfirm);
+};
 
 </script>
 
@@ -52,25 +52,23 @@ const confirm = (isConfirm: boolean) => {
             :size="20"
           />
         </u-i-button>
-
       </div>
-      <h1
-        class="text-center text-lg"
-      >
+
+      <h1 class="text-center text-lg">
         Запись будет удалена. Уверены?    
       </h1>
-
     </div>
 
     <div class="flex justify-around">
-    <u-i-button
-      text="Ок"
-      @click="confirm(true)"
-    />
-    <u-i-button
-      text="“Отмена”"
-      @click="confirm(false)"
-    />
+      <u-i-button
+        text="Ок"
+        @click="confirm(true)"
+      />
+      
+      <u-i-button
+        text="“Отмена”"
+        @click="confirm(false)"
+      />
   </div>
     </div>
   </div>

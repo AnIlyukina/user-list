@@ -1,6 +1,6 @@
 export default (date: string, option: string): string => {
-  console.log(date, option)
-  let result = date
+
+  let result = date;
 
   // меняет формат DD.MM.YYYY на YYYY-MM-DD
   if (option === 'DD.MM.YYYY') {
@@ -12,6 +12,6 @@ export default (date: string, option: string): string => {
     result = date.split(".").reverse().join("-");
   }
   
-  return result
+  return result;
 
 }

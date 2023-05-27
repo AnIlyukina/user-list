@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
-import { RouterLink } from 'vue-router'
+import { RouterLink } from 'vue-router';
 
-import MenuItem from './MenuItem.vue'
+import MenuItem from './MenuItem.vue';
 
 import AccountGroupOutline from 'vue-material-design-icons/AccountGroupOutline.vue';
 import AccountMultiplePlusOutline from 'vue-material-design-icons/AccountMultiplePlusOutline.vue';
@@ -27,9 +27,7 @@ import AccountMultiplePlusOutline from 'vue-material-design-icons/AccountMultipl
           name=""
           page-url="/"
         >
-        <account-group-outline 
-          :size="40"
-        />
+          <account-group-outline :size="40"/>
         </menu-item>
       </RouterLink>
       <RouterLink to="/create">
@@ -37,7 +35,7 @@ import AccountMultiplePlusOutline from 'vue-material-design-icons/AccountMultipl
           name=""
           page-url="/create"
         >
-        <account-multiple-plus-outline :size="40" />
+          <account-multiple-plus-outline :size="40"/>
         </menu-item>
       </RouterLink>
     </ul>

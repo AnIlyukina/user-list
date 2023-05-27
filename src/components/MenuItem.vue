@@ -1,24 +1,39 @@
 <script setup lang="ts">
-import { toRefs } from 'vue'
-import { useRoute } from 'vue-router'
 
-const route = useRoute()
+import { toRefs } from 'vue';
+
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 
 const props = defineProps({
   pageUrl: String,
-  name: String
+  name: String,
 })
-const { pageUrl, name } = toRefs(props)
+
+const { pageUrl, name } = toRefs(props);
 
 </script>
 
 <template>
   <li
-    class="flex item-center justify-start pb-6 cursor-pointer"
+    class="
+      flex
+      item-center
+      justify-start
+      pb-6
+      cursor-pointer
+    "
   >
     <div
-      :class="[route.path === pageUrl ? 'border rounded' : '', ' p-1']"
-      class="font-semibold text-[14px] ml-4 mt-0.5"
+      :class="[route.path === pageUrl ? 'border rounded' : '']"
+      class="
+        font-semibold
+        text-[14px]
+        ml-4
+        mt-0.5
+        p-1
+      "
     >
       <span>
         {{ name }}
@@ -26,5 +41,4 @@ const { pageUrl, name } = toRefs(props)
       <slot/>
     </div>
   </li>
-
 </template>

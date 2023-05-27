@@ -1,31 +1,27 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
 
 import { reactive, ref } from 'vue';
 
+import { useRouter } from 'vue-router';
+
 import changeFormatDate from '../composables/changeFormatDate';
 
-import { UserForm, UserForSend } from '../types/user'
+import { UserForm, UserForSend } from '../types/user';
 
 import UIInput from './UI/UIInput.vue';
 import UITextarea from './UI/UITextarea.vue';
 import UIButton from './UI/UIButton.vue';
 
+const router = useRouter();
 
 const props = defineProps<{
   user?: UserForm,
-  type: string
-}>()
-
-const emits = defineEmits<{
-  (e: 'saveForm', value: UserForSend): void
-}>()
-
-const router = useRouter();
+  type: string,
+}>();
 
 // ошибки валидации
-let errorFullName = ref('')
-let errorBirthDate = ref('')
+let errorFullName = ref('');
+let errorBirthDate = ref('');
 
 
 // данные пользователя
@@ -37,51 +33,54 @@ const initialUserData = props.user ? props.user : {
 
 const userData: UserForm = reactive({...initialUserData});
 
+const emits = defineEmits<{
+  (e: 'saveForm', value: UserForSend): void;
+}>();
+
 const checkValid = () => {
   
-  errorFullName.value = ''
-  errorBirthDate.value = ''
+  errorFullName.value = '';
+  errorBirthDate.value = '';
   
-  let isValid = true
+  let isValid = true;
 
   // проверка фио
   if (!userData.fullName) {
-    errorFullName.value = "Заполните ФИО"
-    isValid = false
+    errorFullName.value = "Заполните ФИО";
+    isValid = false;
   } else {
-    let firstName = userData.fullName.split(' ')[0]
-    let lastName = userData.fullName.split(' ')[1]
+    let firstName = userData.fullName.split(' ')[0];
+    let lastName = userData.fullName.split(' ')[1];
 
     if (!firstName || !lastName) {
-      errorFullName.value = "Некорректно заполнены фамилия или имя"
-      isValid = false
+      errorFullName.value = "Некорректно заполнены фамилия или имя";
+      isValid = false;
     }
   }
 
   // проверка даты рождения
   if (!userData.birthDate) {
-    errorBirthDate.value = "Заполните дату рождения"
-    isValid = false
+    errorBirthDate.value = "Заполните дату рождения";
+    isValid = false;
   } else {
     const dateReg = /^\d{2}([.])\d{2}\1\d{4}$/
 
     if(!(userData.birthDate).match(dateReg)) {
-      errorBirthDate.value = "Некорректно заполнена дата рождения"
-      isValid = false
+      errorBirthDate.value = "Некорректно заполнена дата рождения";
+      isValid = false;
     }
   }
 
-  return isValid
+  return isValid;
 }
 
 // закрываем модалку
 const cancel = () => {
   router.push('/');
 }
-let a = changeFormatDate('12.22.2222', 'YYYY-MM-DD')
-console.log(a)
+
 const saveForm = () => {
-    const isValid = checkValid()
+    const isValid = checkValid();
 
     if (isValid) {
       const dataForSend = {
@@ -89,12 +88,12 @@ const saveForm = () => {
         lastName: userData.fullName.split(' ')[1],
         middleName: userData.fullName.split(' ')[2],
         birthDate: changeFormatDate(userData.birthDate, 'YYYY-MM-DD'),
-        description: userData.description
+        description: userData.description,
       }
-      emits('saveForm', dataForSend)
+
+      emits('saveForm', dataForSend);
     }
 }
-
 </script>
 
 <template>
@@ -107,6 +106,7 @@ const saveForm = () => {
       type="text"
       maxlength="30"
     />
+
     <div
      class="h-[30px] block text-center"
     >
@@ -117,6 +117,7 @@ const saveForm = () => {
         {{ errorFullName }}
       </small>
     </div>
+
     <u-i-input
       v-model="userData.birthDate"
       :isValid="!errorBirthDate"
@@ -125,6 +126,7 @@ const saveForm = () => {
       type="text"
       maxlength="10"
     />
+
     <div
       class="h-[30px] block text-center"
     >
@@ -135,6 +137,7 @@ const saveForm = () => {
         {{ errorBirthDate }}
       </small>
     </div>
+
     <u-i-textarea
       v-model="userData.description"
       label="Описание"
@@ -142,11 +145,13 @@ const saveForm = () => {
       maxlength="100"
     />
   </div>
+
   <div class="flex justify-end">
     <u-i-button
       text="Cохранить"
        @click="saveForm"
     />
+
     <u-i-button
       text="Отменить"
       @click="cancel"

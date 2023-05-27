@@ -4,22 +4,24 @@ const props = defineProps<{
   modelValue: string | null,
   placeholder?: string,
   label: string,
-  maxlength: string
-}>()
+  maxlength: string,
+}>();
 
 const emits = defineEmits<{
-  (e: 'update:modelValue', value: string): void
-}>()
+  (e: 'update:modelValue', value: string): void;
+}>();
 
 const changeValue = (event: Event) => {
-  emits('update:modelValue',(event.target as HTMLInputElement).value)
-}
+  emits('update:modelValue',(event.target as HTMLInputElement).value);
+};
+
 </script>
 <template>
   <div class="mb-7">
     <label class="ml-2">
       {{ props.label }}:
     </label>
+
     <div class="mt-1">
       <textarea
         class="
