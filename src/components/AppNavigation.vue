@@ -4,15 +4,18 @@ import { RouterLink } from 'vue-router'
 
 import MenuItem from './MenuItem.vue'
 
+import AccountGroupOutline from 'vue-material-design-icons/AccountGroupOutline.vue';
+import AccountMultiplePlusOutline from 'vue-material-design-icons/AccountMultiplePlusOutline.vue';
+
 </script>
 
 <template>
   <div
     class="
       h-[100%]
-      p-6 w-[240px]
+      p-6 w-[125px]
       fixed
-      bg-emerald-100
+      bg-[#818cf8]
     "
   >
     <div class="my-8"></div>
@@ -21,15 +24,21 @@ import MenuItem from './MenuItem.vue'
       <RouterLink to="/">
         <menu-item
           class="ml-[1px]"
-          name="Список пользователей"
+          name=""
           page-url="/"
+        >
+        <account-group-outline 
+          :size="40"
         />
+        </menu-item>
       </RouterLink>
       <RouterLink to="/create">
         <menu-item
-          name="Создать пользователя"
+          name=""
           page-url="/create"
-        />
+        >
+        <account-multiple-plus-outline :size="40" />
+        </menu-item>
       </RouterLink>
     </ul>
   </div>

@@ -10,8 +10,8 @@ defineProps<{
     <button
     class="
       p-2 ml-4
-      bg-emerald-200
-      hover:bg-emerald-300
+      bg-[#d3d7ff]
+      hover:bg-[#818cf8]
       rounded-md
     "
     >

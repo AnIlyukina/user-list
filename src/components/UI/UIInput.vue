@@ -29,8 +29,8 @@ const changeValue = (event: Event) => {
         :placeholder="props.placeholder"
         :maxlength="maxlength"
         class="block py-2 px-4 w-full  rounded-full
-      shadow-sm"
-        :class="[isValid ? '' : 'border border-rose-500']"
+      shadow-sm focus:outline-[#818cf8]"
+        :class="[isValid ? '' : 'border border-rose-500 focus:outline-none']"
         @input="changeValue"
       />
     </div>

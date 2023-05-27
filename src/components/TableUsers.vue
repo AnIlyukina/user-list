@@ -47,7 +47,7 @@
     v-if="isOpenConfirmModal"
     @confirm="confirm"
   />
-  <table class="table-auto border border-slate-400 w-full">
+  <table class="table-auto border border-slate-400 w-full mb-2">
     <thead>
     <tr>
       <th class="border border-slate-500 p-2">Фамилия</th>

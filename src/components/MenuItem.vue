@@ -17,13 +17,13 @@ const { pageUrl, name } = toRefs(props)
     class="flex item-center justify-start pb-6 cursor-pointer"
   >
     <div
-      :class="route.path === pageUrl ? 'underline underline-offset-8' : ''"
+      :class="[route.path === pageUrl ? 'border rounded' : '', ' p-1']"
       class="font-semibold text-[14px] ml-4 mt-0.5"
     >
       <span>
         {{ name }}
       </span>
-
+      <slot/>
     </div>
   </li>
 

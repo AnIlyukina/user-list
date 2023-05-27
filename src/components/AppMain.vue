@@ -4,14 +4,13 @@
       fixed
       right-0
       top-0
-      w-[calc(100%-240px)]
+      w-[calc(100%-125px)]
       overflow-auto
       h-full
-      bg-lime-100
+      bg-gray-100
     "
   >
-    <div class="mt-[70px]"/>
+    <div class="mt-[50px]"/>
     <slot/>
-    <div class="mb-[100px]"/>
   </main>
 </template>
