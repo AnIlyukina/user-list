@@ -86,7 +86,7 @@ const confirm = (isConfirmed: boolean) => {
   if (isConfirmed) {
     useUsers.deleteUser(deletedIndex.value);
   }
-  
+
   closeConfirmModal();
 }
 
