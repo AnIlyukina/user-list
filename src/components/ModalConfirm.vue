@@ -66,7 +66,7 @@ const confirm = (isConfirm: boolean) => {
       />
       
       <u-i-button
-        text="“Отмена”"
+        text="Отмена"
         @click="confirm(false)"
       />
   </div>

@@ -6,7 +6,7 @@ import { storeToRefs } from 'pinia';
 
 import { useUsersStore } from "../stores/user";
 
-import changeFormatDate from '../composables/changeFormatDate';
+import useGetDataset from '../composables/useGetDataset';
 
 import { UserForm, UserForSend } from "../types/user";
 
@@ -26,15 +26,13 @@ let dataUser: UserForm = {
   description: '',
 }
 
+const { getDataForForm } = useGetDataset();
+
 if(id > -1) {
   const foundedUser: UserForSend  = findUserById(id);
 
   if (foundedUser) {
-    dataUser = {
-      fullName: `${foundedUser.firstName} ${foundedUser.lastName} ${foundedUser.middleName ? foundedUser.middleName : ''}`,
-      birthDate: changeFormatDate(foundedUser.birthDate, 'DD.MM.YYYY'),
-      description: foundedUser.description,
-    }
+    dataUser = getDataForForm(foundedUser);
   }
 }
 

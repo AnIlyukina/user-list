@@ -7,7 +7,7 @@ import { storeToRefs } from 'pinia';
 import { useUsersStore } from '../stores/user';
 
 import TableUsers from '../components/TableUsers.vue';
-
+//@ts-ignore
 import VueTailwindPagination from '@ocrv/vue-tailwind-pagination';
 import '@ocrv/vue-tailwind-pagination/styles';
 

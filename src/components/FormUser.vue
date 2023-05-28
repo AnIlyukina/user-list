@@ -4,7 +4,7 @@ import { reactive, ref } from 'vue';
 
 import { useRouter } from 'vue-router';
 
-import changeFormatDate from '../composables/changeFormatDate';
+import useGetDataset from '../composables/useGetDataset';
 
 import { UserForm, UserForSend } from '../types/user';
 
@@ -30,6 +30,8 @@ const initialUserData = props.user ? props.user : {
     birthDate: '',
     description: '',
 }
+
+const { getDataForSend } = useGetDataset();
 
 const userData: UserForm = reactive({...initialUserData});
 
@@ -82,15 +84,9 @@ const cancel = () => {
 const saveForm = () => {
     const isValid = checkValid();
 
-    if (isValid) {
-      const dataForSend = {
-        firstName: userData.fullName.split(' ')[0],
-        lastName: userData.fullName.split(' ')[1],
-        middleName: userData.fullName.split(' ')[2],
-        birthDate: changeFormatDate(userData.birthDate, 'YYYY-MM-DD'),
-        description: userData.description,
-      }
-
+    if (isValid) { 
+      
+      const dataForSend = getDataForSend(userData);
       emits('saveForm', dataForSend);
     }
 }

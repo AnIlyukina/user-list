@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toRefs } from 'vue';
 
 const props = defineProps<{
   modelValue: string | null,
@@ -8,6 +9,8 @@ const props = defineProps<{
   maxlength: string,
   isValid?: boolean,
 }>();
+
+const { modelValue, placeholder, label, type, maxlength, isValid } = toRefs(props);
 
 const emits = defineEmits<{
   (e: 'update:modelValue', value: string): void;
@@ -22,11 +25,16 @@ const changeValue = (event: Event) => {
 <template>
   <div>
     <label class="ml-2">
-      {{ props.label }}:
+      {{ label }}:
     </label>
 
     <div class="mt-1">
       <input
+        :value="modelValue"
+        :type="type"
+        :placeholder="placeholder"
+        :maxlength="maxlength"
+        :class="[isValid ? '' : 'border border-rose-500 focus:outline-none']"
         class="
           block
           py-2
@@ -36,11 +44,6 @@ const changeValue = (event: Event) => {
           shadow-sm
           focus:outline-[#818cf8]
         "
-        :class="[isValid ? '' : 'border border-rose-500 focus:outline-none']"
-        :type="props.type"
-        :value="props.modelValue"
-        :placeholder="props.placeholder"
-        :maxlength="maxlength"
         @input="changeValue"
       />
     </div>

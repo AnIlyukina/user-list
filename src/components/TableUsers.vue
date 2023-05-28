@@ -9,7 +9,8 @@ import { useUsersStore } from "../stores/user";
 
 import { UserForSend } from '../types/user';
 
-import ConfirmModal from "./ConfirmModal.vue";
+import ModalConfirm from "./ModalConfirm.vue";
+
 import UIButton from './UI/UIButton.vue';
 
 import PencilBox from 'vue-material-design-icons/PencilBox.vue';
@@ -106,7 +107,7 @@ const editUser = (index: number) => {
 </script>
 
 <template>
-  <confirm-modal
+  <modal-confirm
     v-if="isOpenConfirmModal"
     @confirm="confirm"
   />

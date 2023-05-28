@@ -1,11 +1,15 @@
 <script setup lang="ts">
 
+import { toRefs } from 'vue';
+
 const props = defineProps<{
   modelValue: string | null,
   placeholder?: string,
   label: string,
   maxlength: string,
 }>();
+
+const { modelValue, placeholder, label, maxlength } = toRefs(props);
 
 const emits = defineEmits<{
   (e: 'update:modelValue', value: string): void;
@@ -19,11 +23,14 @@ const changeValue = (event: Event) => {
 <template>
   <div class="mb-7">
     <label class="ml-2">
-      {{ props.label }}:
+      {{ label }}:
     </label>
 
     <div class="mt-1">
       <textarea
+        :value="modelValue ? modelValue : ''"
+        :placeholder="placeholder"
+        :maxlength="maxlength"
         class="
           block
           py-2
@@ -35,9 +42,6 @@ const changeValue = (event: Event) => {
           shadow-sm
         "
         rows="4"
-        :value="props.modelValue ? props.modelValue : ''"
-        :placeholder="props.placeholder"
-        :maxlength="maxlength"
         @input="changeValue"
       />
     </div>

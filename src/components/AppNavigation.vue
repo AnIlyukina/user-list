@@ -13,7 +13,8 @@ import AccountMultiplePlusOutline from 'vue-material-design-icons/AccountMultipl
   <div
     class="
       h-[100%]
-      p-6 w-[125px]
+      p-6
+      w-[125px]
       fixed
       bg-[#818cf8]
     "
@@ -23,7 +24,6 @@ import AccountMultiplePlusOutline from 'vue-material-design-icons/AccountMultipl
     <ul>
       <RouterLink to="/">
         <menu-item
-          class="ml-[1px]"
           name=""
           page-url="/"
         >

@@ -6,7 +6,7 @@ import { UserForSend } from '../types/user';
 
 export const useUsersStore = defineStore("users", () => {
 
-  let users;
+  let users: UserForSend[];
 
   if (localStorage.getItem('users')) {
     users = JSON.parse(localStorage.getItem('users') || '');
