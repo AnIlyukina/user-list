@@ -4,28 +4,43 @@ import { ref } from 'vue';
 
 import { storeToRefs } from 'pinia';
 
+import {useRoute, useRouter} from "vue-router";
+
 import { useUsersStore } from '../stores/user';
 
 import TableUsers from '../components/TableUsers.vue';
-//@ts-ignore
+
 import VueTailwindPagination from '@ocrv/vue-tailwind-pagination';
 import '@ocrv/vue-tailwind-pagination/styles';
+
+const router = useRouter();
+
+const route = useRoute();
 
 const useUsers = useUsersStore();
 const { userCount } = storeToRefs(useUsers);
 
-let currentPage = ref(1);
+let page = route.query.page ? route.query.page : 1
+
+let currentPage = ref(page);
 const total = ref(userCount);
 const perPage = ref(10);
 
 const pageChange = (pageNumber: number) => {
   currentPage.value = pageNumber;
-}
+
+  router.push({
+  name: 'HomeView',
+    query: {
+      page: currentPage.value
+    }
+  })
+};
 
 </script>
 
 <template>
-  <div 
+  <div
     class="
       p-[10px]
       pt-[50px]
@@ -40,28 +55,23 @@ const pageChange = (pageNumber: number) => {
     <div
       v-if="userCount > 0"
       class="
-        flex 
+        flex
         flex-col
         justify-between
         h-[calc(100%-50px)]
       "
     >
-      <div>
-        <table-users
-          :current-page="currentPage"
-          :per-page="perPage"
-        />
-      </div>
+      <table-users
+        :current-page="currentPage"
+        :per-page="perPage"
+      />
 
-      <div>
-        <vue-tailwind-pagination
-          v-if="userCount > 10"
-          :current="currentPage"
-          :total="total"
-          :per-page="perPage"
-          @page-changed="pageChange($event)"
-        />
-      </div>
+      <vue-tailwind-pagination
+        :current="currentPage"
+        :total="total"
+        :per-page="perPage"
+        @page-changed="pageChange($event)"
+      />
     </div>
 
     <div v-else>
