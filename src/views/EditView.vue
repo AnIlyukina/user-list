@@ -5,6 +5,7 @@ import { useRouter, useRoute } from "vue-router";
 import { storeToRefs } from 'pinia';
 
 import { useUsersStore } from "../stores/user";
+import { usePageStore } from "../stores/page";
 
 import useGetDataset from '../composables/useGetDataset';
 
@@ -15,8 +16,11 @@ import FormUser from '../components/FormUser.vue';
 const router = useRouter();
 const route = useRoute();
 
-let useUsers = useUsersStore();
-let { userList } = storeToRefs(useUsers);
+const useUsers = useUsersStore();
+const { userList } = storeToRefs(useUsers);
+
+const usePage = usePageStore();
+const { currentPage } = storeToRefs(usePage);
 
 const id = Number(route.query.id);
 
@@ -42,7 +46,12 @@ function findUserById (id: number): UserForSend {
 
 const editUser = (user: UserForSend) => {
   useUsers.editUser(user, id);
-  router.push('/');
+  router.push({
+    name: 'HomeView',
+    query: {
+      page: currentPage.value,
+    }
+  });
 }
 </script>
 

@@ -7,6 +7,7 @@ import { storeToRefs } from 'pinia';
 import {useRoute, useRouter} from "vue-router";
 
 import { useUsersStore } from '../stores/user';
+import { usePageStore } from '../stores/page';
 
 import TableUsers from '../components/TableUsers.vue';
 
@@ -20,14 +21,18 @@ const route = useRoute();
 const useUsers = useUsersStore();
 const { userCount } = storeToRefs(useUsers);
 
-let page = route.query.page ? route.query.page : 1
+const usePage = usePageStore();
+const { currentPage } = storeToRefs(usePage)
 
-let currentPage = ref(page);
+let page = route.query.page ? Number(route.query.page) : 1
+
+usePage.changeCurrentPage(page);
+
 const total = ref(userCount);
 const perPage = ref(10);
 
-const pageChange = (pageNumber: number) => {
-  currentPage.value = pageNumber;
+const pageChange = (page: number) => {
+  usePage.changeCurrentPage(page)
 
   router.push({
   name: 'HomeView',
